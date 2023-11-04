@@ -28,8 +28,10 @@ describe('It compiles noir program code, receiving circuit bytes and abi object.
     noir = new Noir(circuit, backend);
   });
 
+  // address : pub Field, level : pub Field, rating : Field
+
   it('Should generate valid proof for correct input', async () => {
-    const input = { x: 1, y: 2 };
+    const input = { address: 1, level: 700, rating: 750 };
     // Generate proof
     correctProof = await noir.generateFinalProof(input);
     expect(correctProof.proof instanceof Uint8Array).to.be.true;
@@ -42,7 +44,7 @@ describe('It compiles noir program code, receiving circuit bytes and abi object.
 
   it('Should fail to generate valid proof for incorrect input', async () => {
     try {
-      const input = { x: 1, y: 1 };
+      const input = { address: 1, level: 400, rating: 300 };
       const incorrectProof = await noir.generateFinalProof(input);
     } catch (err) {
       // TODO(Ze): Not sure how detailed we want this test to be
