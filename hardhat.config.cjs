@@ -14,6 +14,15 @@ module.exports = {
       url: `https://rpc.public.zkevm-test.net`,
       accounts: [process.env.POLYGONZK_DEPLOYER_PRIVATE_KEY],
     },
+    neon: {
+      url: `https://devnet.neonevm.org`,
+      accounts: [process.env.NEON_DEPLOYER_PRIVATE_KEY],
+      chainId: 245022926,
+      allowUnlimitedContractSize: false,
+      gas: 'auto',
+      gasPrice: 'auto',
+      isFork: true,
+    },
     /*     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MUMBAI_ALCHEMY_KEY}`,
       accounts: [process.env.MUMBAI_DEPLOYER_PRIVATE_KEY],
@@ -34,5 +43,20 @@ module.exports = {
   },
   paths: {
     sources: './circuits/contract/noirstarter',
+  },
+  etherscan: {
+    apiKey: {
+      neonevm: 'test',
+    },
+    customChains: [
+      {
+        network: 'neonevm',
+        chainId: 245022926,
+        urls: {
+          apiURL: 'https://devnet-api.neonscan.org/hardhat/verify',
+          browserURL: 'https://devnet.neonscan.org',
+        },
+      },
+    ],
   },
 };

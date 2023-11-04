@@ -139,17 +139,23 @@ The test demonstrates basic usage of Noir in a TypeScript Node.js environment.
    npm run start
    ```
 
-## Deploy on networks
+## Deploy on real networks
 
-You can choose any other network in `hardhat.config.ts` and deploy there using this `NETWORK`
-environment variable.
+### Neon EVM
 
-For example, `NETWORK=mumbai yarn build` or `NETWORK=sepolia yarn build`.
+To deploy on Neon EVM:
 
-Make sure you:
+1. Fill in the value NEON_DEPLOYER_PRIVATE_KEY in .env
+1. Get testnet tokens for deployment: https://neonfaucet.org/
+1. Run `npm run deployNeon`
+1. Check the deployed address ("verifier")
+1. To verify the contract: `npx hardhat verify 0x12 --network neon` where you replace 0x12 with the
+   contract address
 
-- Update the deployer private keys in `next-hardhat/.env`
-- Have funds in the deployer account
-- Add keys for alchemy (to act as a node) in `next-hardhat/.env`
+### Polygon zkEVM
 
-Feel free to contribute with other networks in `hardhat.config.ts`
+To deploy on Polygon Zk-EVM:
+
+1. Fill in the value POLYGONZK_DEPLOYER_PRIVATE_KEY in .env
+1. Get testnet Eth (Polygon zkEVM) https://faucet.polygon.technology/
+1. Run `NETWORK=polygonzk npm run deploy`

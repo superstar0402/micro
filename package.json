@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next",
     "deploy": "hardhat compile && hardhat run --network ${NETWORK} scripts/deploy.js",
+    "deployNeon": "hardhat compile && hardhat run --network neon scripts/deployNeon.js",
     "test": "hardhat test"
   },
   "type": "module",
