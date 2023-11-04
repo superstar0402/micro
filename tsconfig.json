@@ -16,7 +16,6 @@
     "noEmit": true,
     "jsx": "preserve",
     "noImplicitAny": true,
-    "strictNullChecks": true,
     "incremental": true
   },
   "exclude": ["dist", "node_modules"],

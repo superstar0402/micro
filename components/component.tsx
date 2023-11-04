@@ -27,6 +27,7 @@ async function getCircuit(name: string) {
 function Component() {
   const [input, setInput] = useState({ x: 0, y: 0 });
   const [proof, setProof] = useState<ProofData>();
+  const [inputProof, setInputProof] = useState<string>();
   const [noir, setNoir] = useState<Noir | null>(null);
   const [backend, setBackend] = useState<BarretenbergBackend | null>(null);
 
@@ -41,12 +42,14 @@ function Component() {
     const calc = new Promise(async (resolve, reject) => {
       const { proof, publicInputs } = await noir!.generateFinalProof(input);
       console.log('Proof created: ', proof);
-      const bytes = Array.from(proof)
+      let hex = uint8ArrayToHex(proof);
+      console.log('proof hex', hex);
+      /* const bytes = Array.from(proof)
         .map(a => a.toString(16))
-        .reduce((prev, curr) => prev + curr);
-      console.log('Proof bytes', bytes);
+        .reduce((prev, curr) => prev + curr); */
+      //console.log('Proof bytes', bytes);
       //console.log("Proof for", inputs)
-      console.log('Proof hex', Buffer.from(proof).toString('hex'));
+      //console.log('Proof hex', Buffer.from(proof).toString('hex'));
 
       setProof({ proof, publicInputs });
 
@@ -59,6 +62,30 @@ function Component() {
     });
   };
 
+  function uint8ArrayToHex(uint8Array: Uint8Array) {
+    // Convert the Uint8Array to a hex string
+    const hexString = Array.from(uint8Array)
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+
+    return hexString;
+  }
+
+  function hexToUint8Array(hexString: string): Uint8Array {
+    if (!hexString) {
+      return new Uint8Array();
+    }
+    // Validate hex string
+    if (hexString.length % 2 !== 0) {
+      throw 'Invalid hexString';
+    }
+
+    // Convert the hex string to a Uint8Array
+    const uint8Array = new Uint8Array(hexString!.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+
+    return uint8Array;
+  }
+
   const verifyProof = async () => {
     const verifyOffChain = new Promise(async (resolve, reject) => {
       if (proof) {
@@ -67,6 +94,18 @@ function Component() {
           publicInputs: proof.publicInputs,
         });
         console.log('Proof verified: ', verification);
+
+        /* let crafted: ProofData = {
+          publicInputs: proof.publicInputs,
+        }; */
+
+        const bytes = Array.from(proof.proof)
+          .map(a => a.toString(16))
+          .reduce((prev, curr) => prev + curr);
+
+        let a = new Uint8Array(Buffer.from(bytes, 'base64'));
+        console.log('A', a);
+
         resolve(verification);
       }
     });
@@ -133,6 +172,20 @@ function Component() {
     initNoir();
   }, []);
 
+  const changeProof = e => {
+    let val = e.target.value;
+    setInputProof(val);
+  };
+
+  const verifyInputProof = async () => {
+    const verification = await noir!.verifyFinalProof({
+      proof: hexToUint8Array(inputProof!),
+      publicInputs: proof!.publicInputs,
+    });
+
+    console.log('Manual verification', verification);
+  };
+
   return (
     <div className="container">
       <h1>Example starter</h1>
@@ -141,6 +194,8 @@ function Component() {
       <input name="x" type={'number'} onChange={handleChange} value={input.x} />
       <input name="y" type={'number'} onChange={handleChange} value={input.y} />
       <button onClick={calculateProof}>Calculate proof</button>
+      <input type="text" onChange={changeProof} value={inputProof} />
+      <button onClick={verifyInputProof}>Verify proof</button>
     </div>
   );
 }
