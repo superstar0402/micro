@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+export default {
   // permits loading of the worker file (barretenberg.js):
-  experimental: {
+  /* experimental: {
     esmExternals: 'loose',
   },
   // test to check why netlify is failing:
@@ -33,7 +33,5 @@ const nextConfig = {
         ],
       },
     ];
-  },
+  }; */
 };
-
-module.exports = nextConfig;

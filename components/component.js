@@ -1,7 +1,7 @@
 import { useState, useEffect, SetStateAction } from 'react';
 
 import { toast } from 'react-toastify';
-import Ethers from '../utils/ethers';
+//import Ethers from '../utils/ethers';
 import React from 'react';
 
 import { Noir } from '@noir-lang/noir_js';
@@ -37,11 +37,11 @@ createWeb3Modal({
   projectId,
 });
 
-async function getCircuit(name: string) {
+async function getCircuit(name) {
   await newCompiler();
   const { data: noirSource } = await axios.get('/api/readCircuitFile?filename=' + name);
 
-  initializeResolver((id: string) => {
+  initializeResolver(id => {
     const source = noirSource;
     return source;
   });
@@ -52,11 +52,11 @@ async function getCircuit(name: string) {
 
 function Component() {
   const [input, setInput] = useState({ x: 0, y: 0 });
-  const [proof, setProof] = useState<ProofData>();
-  const [inputProof, setInputProof] = useState<string>();
-  const [level, setLevel] = useState<number>();
-  const [noir, setNoir] = useState<Noir | null>(null);
-  const [backend, setBackend] = useState<BarretenbergBackend | null>(null);
+  const [proof, setProof] = useState();
+  const [inputProof, setInputProof] = useState();
+  const [level, setLevel] = useState();
+  const [noir, setNoir] = useState(null);
+  const [backend, setBackend] = useState(null);
 
   // Handles input state
   const handleChange = e => {
@@ -85,7 +85,7 @@ function Component() {
     return new Uint8Array(buffer);
   }
 
-  const getLevel = (rating: number) => {
+  const getLevel = rating => {
     let a = Math.floor(rating / 100);
     return a * 100;
   };
@@ -98,7 +98,7 @@ function Component() {
       let level = getLevel(rating);
 
       let privateInput = { address: useAddress, level: level, rating: rating };
-      const { proof, publicInputs } = await noir!.generateFinalProof(privateInput);
+      const { proof, publicInputs } = await noir.generateFinalProof(privateInput);
       console.log('Proof created: ', proof);
       let hex = uint8ArrayToHex(proof);
       console.log('proof hex', hex);
@@ -122,7 +122,7 @@ function Component() {
     });
   };
 
-  function uint8ArrayToHex(uint8Array: Uint8Array) {
+  function uint8ArrayToHex(uint8Array) {
     // Convert the Uint8Array to a hex string
     const hexString = Array.from(uint8Array)
       .map(b => b.toString(16).padStart(2, '0'))
@@ -131,7 +131,7 @@ function Component() {
     return hexString;
   }
 
-  function hexToUint8Array(hexString: string): Uint8Array {
+  function hexToUint8Array(hexString) {
     if (!hexString) {
       return new Uint8Array();
     }
@@ -141,7 +141,7 @@ function Component() {
     }
 
     // Convert the hex string to a Uint8Array
-    const uint8Array = new Uint8Array(hexString!.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+    const uint8Array = new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
 
     return uint8Array;
   }
@@ -159,7 +159,7 @@ function Component() {
         let publicInput = [addressArr, levelArr];
         //inputArray = new Uint8Array()
 
-        const verification = await noir!.verifyFinalProof({
+        const verification = await noir.verifyFinalProof({
           proof: myproof,
           publicInputs: publicInput,
         });
@@ -204,7 +204,7 @@ function Component() {
       pending: 'Verifying proof on-chain...',
       success: 'Proof verified on-chain!',
       error: {
-        render({ data }: any) {
+        render({ data }) {
           return `Error: ${data.message}`;
         },
       },
@@ -219,7 +219,7 @@ function Component() {
       return () => {
         // TODO: Backend should be destroyed by Noir JS so we don't have to
         // store backend in state
-        backend!.destroy();
+        backend.destroy();
       };
     }
   }, [proof]);
@@ -227,9 +227,9 @@ function Component() {
   const initNoir = async () => {
     const circuit = await getCircuit('main');
 
-    const backend = new BarretenbergBackend(circuit as CompiledCircuit, { threads: 8 });
+    const backend = new BarretenbergBackend(circuit, { threads: 8 });
     setBackend(backend);
-    const noir = new Noir(circuit as CompiledCircuit, backend);
+    const noir = new Noir(circuit, backend);
     await toast.promise(noir.init(), {
       pending: 'Initializing Noir...',
       success: 'Noir initialized!',
@@ -251,8 +251,8 @@ function Component() {
     let publicInput = [addressArr, levelArr];
 
     console.log('starting verify', publicInput);
-    const verification = await noir!.verifyFinalProof({
-      proof: proof!.proof, //hexToUint8Array(proofHex),
+    const verification = await noir.verifyFinalProof({
+      proof: proof.proof, //hexToUint8Array(proofHex),
       publicInputs: publicInput,
     });
 

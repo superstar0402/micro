@@ -1,13 +1,8 @@
-import '@nomicfoundation/hardhat-toolbox';
-import '@nomiclabs/hardhat-ethers';
-import '@nomicfoundation/hardhat-chai-matchers';
+require('@nomicfoundation/hardhat-toolbox');
 
-import { HardhatUserConfig } from 'hardhat/config';
+require('dotenv').config();
 
-import * as dotenv from 'dotenv';
-dotenv.config();
-
-const config: HardhatUserConfig = {
+module.exports = {
   solidity: {
     version: '0.8.18',
     settings: {
@@ -17,16 +12,16 @@ const config: HardhatUserConfig = {
   networks: {
     polygonzk: {
       url: `https://rpc.public.zkevm-test.net`,
-      accounts: [process.env.POLYGONZK_DEPLOYER_PRIVATE_KEY as string],
+      accounts: [process.env.POLYGONZK_DEPLOYER_PRIVATE_KEY],
     },
-    mumbai: {
+    /*     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MUMBAI_ALCHEMY_KEY}`,
-      accounts: [process.env.MUMBAI_DEPLOYER_PRIVATE_KEY as string],
+      accounts: [process.env.MUMBAI_DEPLOYER_PRIVATE_KEY],
     },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.SEPOLIA_ALCHEMY_KEY}`,
-      accounts: [process.env.SEPOLIA_DEPLOYER_PRIVATE_KEY as string],
-    },
+      accounts: [process.env.SEPOLIA_DEPLOYER_PRIVATE_KEY],
+    }, */
     localhost: {
       url: 'http://127.0.0.1:8545',
     },
@@ -41,5 +36,3 @@ const config: HardhatUserConfig = {
     sources: './circuits/contract/noirstarter',
   },
 };
-
-export default config;
