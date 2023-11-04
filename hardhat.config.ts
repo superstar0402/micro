@@ -15,6 +15,10 @@ const config: HardhatUserConfig = {
     },
   },
   networks: {
+    polygonzk: {
+      url: `https://rpc.public.zkevm-test.net`,
+      accounts: [process.env.POLYGONZK_DEPLOYER_PRIVATE_KEY as string],
+    },
     mumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.MUMBAI_ALCHEMY_KEY}`,
       accounts: [process.env.MUMBAI_DEPLOYER_PRIVATE_KEY as string],

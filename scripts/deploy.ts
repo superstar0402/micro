@@ -15,6 +15,8 @@ async function main() {
     verifier: verifierAddr.address,
   };
 
+  // PolygonZK address: 0xcCC57c20D29E777308FB61728432C675Bc3A09E1
+
   // Print the config
   console.log('Deployed at', config);
   writeFileSync('utils/addresses.json', JSON.stringify(config), { flag: 'w' });
