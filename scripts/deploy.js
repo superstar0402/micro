@@ -1,5 +1,5 @@
-/* import { writeFileSync } from 'fs';
-import { ethers } from 'hardhat';
+import { writeFileSync } from 'fs';
+//import { ethers } from 'hardhat';
 
 async function main() {
   // Deploy the verifier contract
@@ -29,4 +29,3 @@ main().catch(error => {
   console.error(error);
   process.exitCode = 1;
 });
- */
