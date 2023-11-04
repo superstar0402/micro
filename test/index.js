@@ -6,16 +6,15 @@ import { BarretenbergBackend } from '@noir-lang/backend_barretenberg';
 
 import { compile } from '@noir-lang/noir_wasm';
 import path from 'path';
-import { ProofData } from '@noir-lang/types';
 
-const getCircuit = async (name: string) => {
+const getCircuit = async name => {
   const compiled = await compile(path.resolve('circuits', 'src', `${name}.nr`));
   return compiled;
 };
 
 describe('It compiles noir program code, receiving circuit bytes and abi object.', () => {
-  let noir: Noir;
-  let correctProof: ProofData;
+  let noir;
+  let correctProof;
 
   before(async () => {
     const circuit = await getCircuit('main');
@@ -49,7 +48,7 @@ describe('It compiles noir program code, receiving circuit bytes and abi object.
     } catch (err) {
       // TODO(Ze): Not sure how detailed we want this test to be
       expect(err instanceof Error).to.be.true;
-      const error = err as Error;
+      const error = err;
       expect(error.message).to.contain('Cannot satisfy constraint');
     }
   });

@@ -103,19 +103,11 @@ compiling, you may need to uninstall it, instructions
    npx hardhat node
    ```
 
-   or if foundry is preferred, with
+3. Run the unit tests with
 
    ```bash
-   anvil
+   npx hardhat test
    ```
-
-3. Run the [example test file](./test/index.test.ts) with
-
-   ```bash
-   yarn test
-   ```
-
-The test demonstrates basic usage of Noir in a TypeScript Node.js environment.
 
 ## Deploy locally
 
@@ -152,6 +144,9 @@ To deploy on Neon EVM:
 1. To verify the contract: `npx hardhat verify 0x12 --network neon` where you replace 0x12 with the
    contract address
 
+An instance of the contract has been deployed and verified at
+https://devnet.neonscan.org/address/0xBbC1E1B6595aaaa515f169959a165542Ad545A1a#contract
+
 ### Polygon zkEVM
 
 To deploy on Polygon Zk-EVM:
@@ -159,3 +154,7 @@ To deploy on Polygon Zk-EVM:
 1. Fill in the value POLYGONZK_DEPLOYER_PRIVATE_KEY in .env
 1. Get testnet Eth (Polygon zkEVM) https://faucet.polygon.technology/
 1. Run `NETWORK=polygonzk npm run deploy`
+
+An instance of the contract has been deployed at
+https://testnet-zkevm.polygonscan.com/address/0xcCC57c20D29E777308FB61728432C675Bc3A09E1 .
+Unfortunately, contract verification is not supported for that network in Hardhat.
