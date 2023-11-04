@@ -53,8 +53,7 @@ while still preserving the borrower's privacy.
 
 ## System architecture
 
-![Untitled_Diagram3 drawio](https://github.com/microbecode/ethlisbon/assets/63548982/6bd1c4c4-74a1-4ac6-a340-f3dbec0b04b7)
-
+![Untitled_Diagram4 drawio](https://github.com/microbecode/ethlisbon/assets/63548982/dfbdaf03-bc47-4c75-a087-e0165e0fcf58)
 
 ## Privacy
 
