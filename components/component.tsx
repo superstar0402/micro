@@ -10,6 +10,7 @@ import { CompiledCircuit, ProofData } from '@noir-lang/types';
 import newCompiler, { compile } from '@noir-lang/noir_wasm';
 import { initializeResolver } from '@noir-lang/source-resolver';
 import axios from 'axios';
+import { getScore } from '../scripts/getScore';
 
 async function getCircuit(name: string) {
   await newCompiler();
@@ -59,15 +60,25 @@ function Component() {
     return new Uint8Array(buffer);
   }
 
+  const getLevel = (rating: number) => {
+    let a = Math.floor(rating / 100);
+    return a * 100;
+  };
+
   // Calculates proof
   const calculateProof = async () => {
     const calc = new Promise(async (resolve, reject) => {
-      let privateInput = { address: 1, level: 700, rating: 750 };
+      let useAddress = 1;
+      let rating = getScore(useAddress);
+      let level = getLevel(rating);
+
+      let privateInput = { address: useAddress, level: level, rating: rating };
       const { proof, publicInputs } = await noir!.generateFinalProof(privateInput);
       console.log('Proof created: ', proof);
       let hex = uint8ArrayToHex(proof);
       console.log('proof hex', hex);
       console.log('public inputs', publicInputs);
+      console.log('private inputs', privateInput);
       /* const bytes = Array.from(proof)
         .map(a => a.toString(16))
         .reduce((prev, curr) => prev + curr); */
@@ -205,11 +216,6 @@ function Component() {
   useEffect(() => {
     initNoir();
   }, []);
-
-  const changeProof = e => {
-    let val = e.target.value;
-    setInputProof(val);
-  };
 
   const verifyInputProof = async () => {
     //  let proofHex =
