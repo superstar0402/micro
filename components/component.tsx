@@ -12,6 +12,31 @@ import { initializeResolver } from '@noir-lang/source-resolver';
 import axios from 'axios';
 import { getScore } from '../scripts/getScore';
 
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
+
+const projectId = '490f5afe44cba86390a0ee147b7e9c48';
+
+const localhost = {
+  chainId: 1337,
+  name: 'Ethereum',
+  currency: 'ETH',
+  explorerUrl: 'https://etherscan.io',
+  rpcUrl: 'http://127.0.0.1:8545',
+};
+
+const metadata = {
+  name: 'My Website',
+  description: 'My Website description',
+  url: 'https://localhost',
+  icons: ['https://avatars.mywebsite.com/'],
+};
+
+createWeb3Modal({
+  ethersConfig: defaultConfig({ metadata }),
+  chains: [localhost],
+  projectId,
+});
+
 async function getCircuit(name: string) {
   await newCompiler();
   const { data: noirSource } = await axios.get('/api/readCircuitFile?filename=' + name);
@@ -248,6 +273,7 @@ function Component() {
         value={level}
       />
       <button onClick={verifyInputProof}>Check score</button>
+      <w3m-button />
     </div>
   );
 }
