@@ -1,4 +1,4 @@
-# NFTfi Credit Score# 
+# NFTfi Credit Score # 
 NFTfi Credit Score is a protocol for determining a wallet's creditworthiness for acting as a borrower in NFT loans. This worthiness is expressed in a numerical value, the NFTfi Credit Score.
 
 # Problem #
