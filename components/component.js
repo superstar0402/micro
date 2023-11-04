@@ -13,6 +13,7 @@ import axios from 'axios';
 import { getScore } from '../scripts/getScore';
 
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
+import { IExecDataProtector } from '@iexec/dataprotector';
 
 const projectId = '490f5afe44cba86390a0ee147b7e9c48';
 
@@ -99,11 +100,11 @@ function Component() {
 
       let privateInput = { address: useAddress, level: level, rating: rating };
       const { proof, publicInputs } = await noir.generateFinalProof(privateInput);
-      console.log('Proof created: ', proof);
+      //console.log('Proof created: ', proof);
       let hex = uint8ArrayToHex(proof);
       console.log('proof hex', hex);
-      console.log('public inputs', publicInputs);
-      console.log('private inputs', privateInput);
+      /*       console.log('public inputs', publicInputs);
+      console.log('private inputs', privateInput); */
       /* const bytes = Array.from(proof)
         .map(a => a.toString(16))
         .reduce((prev, curr) => prev + curr); */
@@ -115,11 +116,30 @@ function Component() {
 
       resolve(proof);
     });
-    toast.promise(calc, {
+    /*     toast.promise(calc, {
       pending: 'Calculating proof...',
       success: 'Proof calculated!',
       error: 'Error calculating proof',
-    });
+    }); */
+
+    const web3Provider = window.ethereum;
+    console.log('using provider', web3Provider);
+    // instantiate
+    const dataProtector = new IExecDataProtector(web3Provider);
+
+    const upload = async () => {
+      const protectedData = await dataProtector.protectData({
+        data: {
+          email: 'example@gmail.com',
+          SMTPserver: {
+            port: 5000,
+            smtp_server: 'smtp.gmail.com',
+          },
+        },
+      });
+      console.log('protected', protectedData);
+    };
+    await upload();
   };
 
   function uint8ArrayToHex(uint8Array) {
@@ -250,7 +270,7 @@ function Component() {
     let levelArr = numberToPaddedUint8Array(level);
     let publicInput = [addressArr, levelArr];
 
-    console.log('starting verify', publicInput);
+    //console.log('starting verify', publicInput);
     const verification = await noir.verifyFinalProof({
       proof: proof.proof, //hexToUint8Array(proofHex),
       publicInputs: publicInput,

@@ -12,6 +12,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@iexec/dataprotector": "^0.3.0",
     "@noir-lang/backend_barretenberg": "^0.17.0",
     "@noir-lang/noir_js": "^0.17.0",
     "@noir-lang/noir_wasm": "^0.17.0",
