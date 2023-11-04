@@ -1,3 +1,22 @@
+# NFTfi Credit Score # 
+NFTfi Credit Score is a protocol for determining a wallet's creditworthiness for acting as a borrower in NFT loans. This worthiness is expressed in a numerical value, the NFTfi Credit Score.
+
+# Problem #
+Currently, creditworthiness in the NFT loans market is opaque. Users and protocols alike have very little visibility over a borrower's credit history, which makes it difficult to ascertain their likelihood of default. This opaqueness make it difficult to negotiate terms in a transparent way, since lenders don't know much about the borrower's profile. We aim to change that, by giving borrowers to possibility to show lenders their onchain NFTfi Credit Score.
+
+# Solution #
+The NFTfi Credit Score gives a wallet a numerical credit score, which enables its owner to leverage their credit history to better negotiate NFT loan terms. This Score is given in the form of a Zero-Knowledge Proof (ZKP) that the wallet owner can create, for lenders to later verify. The use of ZKPs enable users to keep their scores private from the general public, so they may preserve their privacy.
+
+# Calculation method #
+We aim to take into account a wallet's past history of interacting with all NFTfi protocols across the chosen chains. Due to resource constraints, this project takes only one protocol into consideration, NFTfi. In our calculations, we consider key signals as positive / negative indicators of  a user's creditworthiness. Successful loans are seen as positive  signals, and defaults are seen as negative signals. Lending activity, namely lending offers and loans where the user acted as the lender, are also seen as a positive signals, as they indicate an active, credible user in the lending space. NFTfi Credit Score uses the following formula to assess a wallet's credit score:
+
+# How It Works #
+- Borrower visits our website, where they connect their wallet and emit a ZKP of their credit score.
+- Lender visits our website to verify the borrower's ZKP, thus confirming their claim to better loan terms.
+
+# Future Protocol Expansion #
+This protocol has a lot of potential for modularity and expansion, namely in terms of accessibility and functionality. In terms of accessibility, we aim to enable the borrower to mint an NFT with their score, as well as create a widget / API that enables protocols to easily display someone's credit score to other users, should they wish to. In terms of functionality, we aim to expand the protocol in a way that users can complement their onchain NFTfi Credit Score with their real-life credit score, as well as with their DeFi credit score. This will strengthen their case for negotiating better loan terms and make the transaction as transparent and data-backed as possible, while still preserving the borrower's privacy.
+
 # Noir with Next and Hardhat
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e4bd1ebc-6be1-4ed2-8be8-18f70382ae22/deploy-status)](https://app.netlify.com/sites/noir-next-hardhat/deploys)
