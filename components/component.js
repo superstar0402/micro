@@ -1,12 +1,10 @@
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 
 import { toast } from 'react-toastify';
-//import Ethers from '../utils/ethers';
 import React from 'react';
 
 import { Noir } from '@noir-lang/noir_js';
 import { BarretenbergBackend } from '@noir-lang/backend_barretenberg';
-import { CompiledCircuit, ProofData } from '@noir-lang/types';
 import newCompiler, { compile } from '@noir-lang/noir_wasm';
 import { initializeResolver } from '@noir-lang/source-resolver';
 import axios from 'axios';
@@ -25,8 +23,8 @@ const localhost = {
 };
 
 const metadata = {
-  name: 'My Website',
-  description: 'My Website description',
+  name: 'Trust Scale',
+  description: 'Credit score data based on NFT lending activity',
   url: 'https://localhost',
   icons: ['https://avatars.mywebsite.com/'],
 };
@@ -94,21 +92,6 @@ function Component() {
       .join('');
 
     return hexString;
-  }
-
-  function hexToUint8Array(hexString) {
-    if (!hexString) {
-      return new Uint8Array();
-    }
-    // Validate hex string
-    if (hexString.length % 2 !== 0) {
-      throw 'Invalid hexString';
-    }
-
-    // Convert the hex string to a Uint8Array
-    const uint8Array = new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
-
-    return uint8Array;
   }
 
   // Verifier the proof if there's one in state

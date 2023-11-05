@@ -1,7 +1,7 @@
 {
-  "name": "noir-starter",
+  "name": "credit-score",
   "version": "1.0.0",
-  "description": "A template repository to get started with writing zero knowledge programs with Noir.",
+  "description": "Credit score calculations based on NFT lending activity",
   "scripts": {
     "dev": "hardhat compile && npm run deploy",
     "build": "next build",
