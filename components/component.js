@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { toast } from 'react-toastify';
 import React from 'react';
@@ -11,6 +11,8 @@ import axios from 'axios';
 import { getScore } from '../scripts/getScore';
 
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers5/react';
+import { IExecDataProtector } from '@iexec/dataprotector';
+import { IExecWeb3mail } from '@iexec/web3mail';
 
 const projectId = '490f5afe44cba86390a0ee147b7e9c48';
 
@@ -58,6 +60,10 @@ function Component() {
   const [click, setClick] = useState(null);
   const [click2, setClick2] = useState(null);
   const [click3, setClick3] = useState(null);
+  const [protector, setProtector] = useState(null);
+  const [protectMailer, setProtectMailer] = useState(null);
+
+  const inputFile = useRef(null);
 
   function numberToPaddedUint8Array(num) {
     // Create a 32-byte buffer filled with zeros
@@ -122,6 +128,14 @@ function Component() {
   };
 
   useEffect(() => {
+    const web3Provider = window.ethereum;
+    // instantiate
+    const dataProtector = new IExecDataProtector(web3Provider);
+    const web3mail = new IExecWeb3mail(web3Provider);
+
+    setProtector(dataProtector);
+    setProtectMailer(web3mail);
+
     initNoir();
   }, []);
 
@@ -144,8 +158,8 @@ function Component() {
       resolve(proof);
     });
     toast.promise(calc, {
-      pending: 'Calculating proof...',
-      success: 'Proof calculated!',
+      pending: 'Analyzing...',
+      success: 'Analysis complete',
       error: 'Error calculating proof',
     });
   };
@@ -173,6 +187,14 @@ function Component() {
     setTimeout(function () {
       setClick3(true);
     }, 2000);
+  };
+
+  const onInputFile = async () => {
+    // `current` points to the mounted file input element
+    inputFile.current.click();
+
+    // TODO: add file to iExec 'protectData' and
+    // TODO: add possibility to email the final score via iExec
   };
 
   return (
@@ -212,16 +234,7 @@ function Component() {
             alt=""
             src="/bg-stars@2x.png"
           />
-          <div
-            style={{
-              position: 'absolute',
-              top: '44.13rem',
-              left: '0rem',
-              background: 'linear-gradient(180deg, rgba(16, 21, 26, 0), #10151a)',
-              width: '120rem',
-              height: '20.5rem',
-            }}
-          />
+
           <b
             style={{
               position: 'absolute',
@@ -236,6 +249,34 @@ function Component() {
           >
             Trust Scale
           </b>
+          <div
+            style={{
+              position: 'absolute',
+              top: '1rem',
+              left: '80.07rem',
+              borderRadius: '16px',
+              boxShadow: '0px 9px 44px rgba(255, 214, 0, 0.19)',
+              border: '3px solid #ffd600',
+              boxSizing: 'border-box',
+              width: '14.81rem',
+              height: '4.25rem',
+              color: '#ffd600',
+              marginTop: '30px',
+            }}
+          >
+            <b
+              style={{
+                position: 'absolute',
+                top: 'calc(50% - 18px)',
+                left: '25px',
+                lineHeight: '2.25rem',
+              }}
+              onClick={onInputFile}
+            >
+              Submit manual
+              <input type="file" id="file" ref={inputFile} style={{ display: 'none' }} />
+            </b>
+          </div>
           <img
             style={{
               position: 'absolute',
@@ -630,54 +671,11 @@ function Component() {
             position: 'absolute',
             top: '0rem',
             left: '24.38rem',
-            width: '71.25rem',
+            width: '31.25rem',
             height: '8rem',
             fontSize: '1rem',
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              top: 'calc(50% - 20px)',
-              right: '0rem',
-              borderRadius: '8px',
-              backgroundColor: '#262e37',
-              width: '8rem',
-              height: '2.5rem',
-            }}
-          >
-            <b
-              style={{
-                position: 'absolute',
-                top: 'calc(50% - 14px)',
-                left: '2.75rem',
-                lineHeight: '1.75rem',
-              }}
-            >
-              Twitter
-            </b>
-            <img
-              style={{
-                position: 'absolute',
-                top: '0.5rem',
-                left: '0.75rem',
-                width: '1.5rem',
-                height: '1.5rem',
-                overflow: 'hidden',
-              }}
-              alt=""
-              src="/icons8twitter-1.svg"
-            />
-          </div>
-          <div
-            style={{
-              position: 'absolute',
-              top: 'calc(50% - 18px)',
-              right: '12.5rem',
-              width: '20.88rem',
-              height: '2.25rem',
-            }}
-          />
           <div
             style={{
               position: 'absolute',

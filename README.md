@@ -57,9 +57,10 @@ possible, while still preserving the borrower's privacy.
 [iExec](https://protocol.docs.iex.ec/) is a protocol for decentralized cloud computing.
 
 Our project's original plan was to utilize iExec for securing a separate credit score for each user.
-This credit score would originate from the user's bank or similar entity. This score would then be
-used securely through iExec encrypted data when calculating the final score used in this project.
-The user could request the score by email, by utilizing iExec's privatized email sending.
+This credit score could be uploaded by the user via the "Submit manual" functionality. This score
+would then be used securely through iExec encrypted data when calculating the final score used in
+this project. The user could request the final score by email, by utilizing iExec's privatized email
+sending.
 
 Unfortunately, we never got the email component working properly and our email tasks
 [never completed](https://explorer.iex.ec/bellecour/address/0x615bcaca28523ba081071e68e818b44948c1dd5a).
