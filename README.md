@@ -102,31 +102,29 @@ recommended.
 
 ## Installation
 
-1. Install [yarn](https://yarnpkg.com/) (tested on yarn v1.22.19)
+- Install [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm/)
 
-2. Install [Node.js ≥v18](https://nodejs.org/en) (tested on v18.17.0)
+- Install [noirup](https://noir-lang.org/getting_started/nargo_installation/#option-1-noirup) with
 
-3. Install [noirup](https://noir-lang.org/getting_started/nargo_installation/#option-1-noirup) with
+  ```bash
+  curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
+  ```
 
-   ```bash
-   curl -L https://raw.githubusercontent.com/noir-lang/noirup/main/install | bash
-   ```
+- Install Nargo v0.17.0 with
 
-4. Install Nargo v0.17.0 with
-
-   ```bash
-   noirup -v 0.17.0
-   ```
+  ```bash
+  noirup -v 0.17.0
+  ```
 
 If you had a lower version of `nargo` installed previously and are running into errors when
 compiling, you may need to uninstall it, instructions
 [here](https://noir-lang.org/getting_started/nargo_installation#uninstalling-nargo).
 
-5. Install dependencies with
+- Install dependencies with
 
-   ```bash
-   npm i
-   ```
+  ```bash
+  npm i
+  ```
 
 ## Test locally
 
