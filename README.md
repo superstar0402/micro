@@ -81,7 +81,9 @@ not have the time to incorporate the real NFT lending data.
 
 ## System architecture
 
-![Untitled_Diagram4 drawio](https://github.com/microbecode/ethlisbon/assets/63548982/dfbdaf03-bc47-4c75-a087-e0165e0fcf58)
+Flow chart of the proving engine.
+
+![Flow chart of the proving engine](./flow.drawio.png)
 
 ## Privacy
 
