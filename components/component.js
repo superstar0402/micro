@@ -264,31 +264,32 @@ function Component() {
             alt=""
             src="/logo-full.svg"
           />
-          <div
-            style={{
-              position: 'absolute',
-              top: 'calc(50% - 472px)',
-              right: '15.5rem',
-              borderRadius: '8px',
-              backgroundColor: '#262e37',
-              width: '8rem',
-              height: '2.5rem',
-              fontSize: '1rem',
-            }}
-          >
-            <img
+          <a href="https://github.com/microbecode/ethlisbon">
+            <div
               style={{
                 position: 'absolute',
-                top: '0.38rem',
-                left: '0.75rem',
-                width: '1.28rem',
-                height: '1.5rem',
-                objectFit: 'cover',
+                top: 'calc(50% - 472px)',
+                right: '15.5rem',
+                borderRadius: '8px',
+                backgroundColor: '#262e37',
+                width: '8rem',
+                height: '2.5rem',
+                fontSize: '1rem',
               }}
-              alt=""
-              src="/github@2x.png"
-            />
-            <a href="https://github.com/microbecode/ethlisbon">
+            >
+              <img
+                style={{
+                  position: 'absolute',
+                  top: '0.38rem',
+                  left: '0.75rem',
+                  width: '1.28rem',
+                  height: '1.5rem',
+                  objectFit: 'cover',
+                }}
+                alt=""
+                src="/github@2x.png"
+              />
+
               <b
                 style={{
                   position: 'absolute',
@@ -300,8 +301,8 @@ function Component() {
               >
                 Github
               </b>
-            </a>
-          </div>
+            </div>
+          </a>
           <div
             style={{
               position: 'absolute',

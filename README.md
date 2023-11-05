@@ -1,7 +1,7 @@
 # Trust Scale, the NFTfi Credit Score
 
-Trust Scale is a protocol for determining a wallet's creditworthiness for acting as a
-borrower in NFT loans. This worthiness is expressed in a numerical value, the NFTfi credit score.
+Trust Scale is a protocol for determining a wallet's creditworthiness for acting as a borrower in
+NFT loans. This worthiness is expressed in a numerical value, the NFTfi credit score.
 
 # Overview
 
@@ -15,8 +15,8 @@ borrowers to possibility to show lenders their onchain NFTfi credit score.
 
 ## Solution
 
-Trust Scale gives a wallet a numerical credit score, which enables its owner to leverage
-their credit history to better negotiate NFT loan terms. This score is given in the form of a
+Trust Scale gives a wallet a numerical credit score, which enables its owner to leverage their
+credit history to better negotiate NFT loan terms. This score is given in the form of a
 Zero-Knowledge Proof (ZKP) that the wallet owner can create, for lenders to later verify. The use of
 ZKPs enable users to keep their scores private from the general public, so they may preserve their
 privacy.
@@ -25,29 +25,56 @@ privacy.
 
 We take into account a wallet's past history when interacting with NFTfi protocols to determine its
 creditworthiness. The calculation is done via a weighted average of two variables - the borrower's
-Historical Performance Score (HPS) and their Trustworthiness Score (TS). The HPS is a composite score,
-which expresses the wallet's past behaviour as a borrower. It takes into account the user's default-to-loan 
-ratio, loan recency, loan size and credit utilization. As for TS, it expresses the wallet's 
-past behaviour as a lender, which gives further depth and context about their borrower profile. It does so by 
-considering past loan offers, effective loans and asset diversity in what is also a composite score.
+Historical Performance Score (HPS) and their Trustworthiness Score (TS). The HPS is a composite
+score, which expresses the wallet's past behaviour as a borrower. It takes into account the user's
+default-to-loan ratio, loan recency, loan size and credit utilization. As for TS, it expresses the
+wallet's past behaviour as a lender, which gives further depth and context about their borrower
+profile. It does so by considering past loan offers, effective loans and asset diversity in what is
+also a composite score.
 
 ## How It Works
 
 - Borrower visits our website, where they connect their wallet and emit a ZKP of their credit score.
-- Borrower can submit their real-life credit score, to be taken into account in score computation. This
-information is kept private via IExec's Data Protector.
+- Borrower can submit their real-life credit score, to be taken into account in score computation.
+  This information is kept private via IExec's Data Protector.
 - Lenders visit our website to verify the borrower's ZKP, thus confirming their claim to better loan
   terms.
 
 ## Future Protocol Expansion
 
 This protocol has a lot of potential for modularity and expansion, namely in terms of accessibility
-and functionality. In terms of accessibility, the borrower could mint an NFT with
-their score, as well as create a widget / API that enables protocols to easily display someone's
-credit score to other users, should they wish to. In terms of functionality, there's a lot of potential to 
-expand the protocol to take into account the borrower's DeFi credit score. This will strengthen their case 
-for negotiating better loan terms and make the transaction as transparent and data-backed as possible,
-while still preserving the borrower's privacy.
+and functionality. In terms of accessibility, the borrower could mint an NFT with their score, as
+well as create a widget / API that enables protocols to easily display someone's credit score to
+other users, should they wish to. In terms of functionality, there's a lot of potential to expand
+the protocol to take into account the borrower's DeFi credit score. This will strengthen their case
+for negotiating better loan terms and make the transaction as transparent and data-backed as
+possible, while still preserving the borrower's privacy.
+
+# Notes on external component usage
+
+## iExec
+
+[iExec](https://protocol.docs.iex.ec/) is a protocol for decentralized cloud computing.
+
+Our project's original plan was to utilize iExec for securing a separate credit score for each user.
+This credit score would originate from the user's bank or similar entity. This score would then be
+used securely through iExec encrypted data when calculating the final score used in this project.
+The user could request the score by email, by utilizing iExec's privatized email sending.
+
+Unfortunately, we never got the email component working properly and our email tasks
+[never completed](https://explorer.iex.ec/bellecour/address/0x615bcaca28523ba081071e68e818b44948c1dd5a).
+Due to time constraints, we decided not to include this in the final product. The code used is
+stored in a
+[separate branch](https://github.com/microbecode/ethlisbon/blob/iexec/components/component.js#L128).
+
+## Neon EVM
+
+[Neon EVM](https://neonevm.org/) is a revolutionary project to combine the data of Solana with EVM
+compatibility.
+
+Since Solana's NFT ecosystem is huge, the opportunity to incorporate Solana's NFT lending data
+couldn't be ignored. We got our project [deployed on Neon EVM](#neon-evm-1), but unfortunately did
+not have the time to incorporate the real NFT lending data.
 
 # Technical details
 
